@@ -20,7 +20,7 @@ yet constrained by any beam-based experiment.
 
 <div align="center">
 <img src="/main/plots/Dmeson_bounds.png" width="90%" height="90%"/> 
-<img src="/main/plots/K_meson_limits.png" width="90%" height="90%"/>
+<img src="/main/plots/Kmeson_bounds.png" width="90%" height="90%"/>
 </div>
 
 
