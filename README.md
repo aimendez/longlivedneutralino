@@ -19,11 +19,11 @@ yet constrained by any beam-based experiment.
 
 
 <div align="center">
-<img src="/main/plots/Dmeson_bounds.jpg" width="70%" height="70%"/> 
+<img src="/main/plots/Dmeson_bounds.png" width="90%" height="90%"/> 
 </div>
 
 <div align="center">
-<img src="/main/plots/Kmeson_bounds.jpg" width="70%" height="70%"/>
+<img src="/main/plots/Kmeson_bounds.png" width="90%" height="90%"/>
 </div>
 
 
