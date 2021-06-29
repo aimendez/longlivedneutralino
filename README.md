@@ -36,17 +36,17 @@ LongLivedNeutralinos
     │  
     ├───datafiles			        # folder with output files from scripts
     │   ├───Aeff		          	# Output files from Aeff.py
-    │   ├───chi2                    # Pending
-    │   ├───Efficiency		    	# Pending
-    │   ├───EventDistribution		# Output files from EventDistribution.py
-    │   ├───MesonFlux		      	# MC Atmospheric Meson Flux
-    │   ├───NeutralinoFlux	    	# Output files from FluxIntegral.py
-    │   ├───NeutralinoPheno	  	    # Output files from Pheno.py
-    │   └───SK_data 		      	# CSV files with SK data
+    │   ├───chi2                   		# Pending
+    │   ├───Efficiency		    		# Pending
+    │   ├───EventDistribution			# Output files from EventDistribution.py
+    │   ├───MesonFlux		      		# MC Atmospheric Meson Flux
+    │   ├───NeutralinoFlux	    		# Output files from FluxIntegral.py
+    │   ├───NeutralinoPheno	  	   	# Output files from Pheno.py
+    │   └───SK_data 		      		# CSV files with SK data
     │   
     ├───notebooks		          	# Notebooks with the results
     │  
-    └───plots			            # Figures and other plots
+    └───plots			            	# Figures and other plots
 ```
 
 
@@ -55,9 +55,9 @@ LongLivedNeutralinos
 You can download a copy of all the files in this repository by cloning the
 [git](https://git-scm.com/) repository:
 
-    $ git clone https://github.com/pinga-lab/PAPER-REPO.git
+    $ git clone https://github.com/aimendez/longlivedneutralino.git
 
-or [download a zip archive](https://github.com/pinga-lab/PAPER-REPO/archive/master.zip).
+or [download a zip archive](https://github.com/aimendez/longlivedneutralino/archive/refs/heads/master.zip).
 
 ## Dependencies 
 
