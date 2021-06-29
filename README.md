@@ -36,17 +36,17 @@ LongLivedNeutralinos
     │  
     ├───datafiles			        # folder with output files from scripts
     │   ├───Aeff		          	# Output files from Aeff.py
-    │   ├───chi2                    # Pending
-    │   ├───Efficiency		    	# Pending
-    │   ├───EventDistribution		# Output files from EventDistribution.py
-    │   ├───MesonFlux		      	# MC Atmospheric Meson Flux
-    │   ├───NeutralinoFlux	    	# Output files from FluxIntegral.py
-    │   ├───NeutralinoPheno	  	    # Output files from Pheno.py
-    │   └───SK_data 		      	# CSV files with SK data
+    │   ├───chi2                    		# Pending
+    │   ├───Efficiency		    		# Pending
+    │   ├───EventDistribution			# Output files from EventDistribution.py
+    │   ├───MesonFlux		      		# MC Atmospheric Meson Flux
+    │   ├───NeutralinoFlux	    		# Output files from FluxIntegral.py
+    │   ├───NeutralinoPheno	  		# Output files from Pheno.py
+    │   └───SK_data 		      		# CSV files with SK data
     │   
     ├───notebooks		          	# Notebooks with the results
     │  
-    └───plots			            # Figures and other plots
+    └───plots			            	# Figures and other plots
 ```
 
 
@@ -81,7 +81,7 @@ This file contains all the benchmarks stored as (key, value) pairs of a global d
 where the key is the name of the custom benchmark  ```"BM_NAME"``` , and the value is a dictionary with the following format:
 ```python
 BM  = {
-		"BM_NAME" : {	
+	"BM_NAME" : {	
                 # BRIEF DESCRIPTION OF BENCHMARK (optional)#
                 "MESON": MESON,
                 "MA": MA,
@@ -93,7 +93,7 @@ BM  = {
                 "LEPTON": LEPTON,
                 "EQUAL_COUPLING": EQUAL_COUPLING,
                 "MODEL": MODEL,
-				}
+		}
 }
 ```
 #### Parameters:
