@@ -19,7 +19,8 @@ from math import sqrt
 from math import pi as PI
 from config import BM 
 import time
-
+import os 
+cwd = os.getcwd()
 
 #-------------------- BENCHMARK -------------------------#
 BENCHMARK = sys.argv[1] #'BM1'
@@ -192,18 +193,17 @@ def LambdaSQ(x,y,z):
 
 # Branching ratio of a meson decaying to neutralino + lepton. It receives a parameter (lam_P) that corresponds to the production RpV parameter. This parameter has to be specified and passed as a string 'prod' in the function that calulates the neutralino decay width. It also receives a meson and lepton that MUST BE CONSISTENT WITH THE CHOICE OF 'lam_P'.
 
-def BrMeson(mchi,meson,msferm,lepton,lam_P):
+def BrMeson(mchi,meson,lepton, lam_P): # lam_P/msferm2 free parameter >> lam_P == lam_P/m2 
     M_mass = mesons[meson]['m']
     decay_const = mesons[meson]['F']
     M_width = mesons[meson]['width']
     ml = lepton_mass[lepton]
-    param = lam_P/(msferm**2)
     if M_mass > (ml + mchi):
         if meson in pseudoscalar_meson_list:
-            partial_width_pseudo = LambdaSQ(M_mass**2,mchi**2,ml**2) * G(lepton,meson,lam_P/msferm**2)**2 * decay_const**2 * (M_mass**2 - mchi**2 - ml**2)/(64*PI*M_mass**3)
+            partial_width_pseudo = LambdaSQ(M_mass**2,mchi**2,ml**2) * G(lepton,meson,lam_P)**2 * decay_const**2 * (M_mass**2 - mchi**2 - ml**2)/(64*PI*M_mass**3)
             return partial_width_pseudo/(M_width + partial_width_pseudo)
         elif meson in vector_meson_list:
-            partial_width_vector = LambdaSQ(M_mass**2,mchi**2,ml**2) * G(lepton,meson,lam_P/msferm**2)**2 * decay_const**2 * (M_mass**2*(M_mass**2 + mchi**2 + ml**2) - 2*(mchi**2 - ml**2)**2)/(3*PI*M_mass**3)
+            partial_width_vector = LambdaSQ(M_mass**2,mchi**2,ml**2) * G(lepton,meson,lam_P)**2 * decay_const**2 * (M_mass**2*(M_mass**2 + mchi**2 + ml**2) - 2*(mchi**2 - ml**2)**2)/(3*PI*M_mass**3)
             return partial_width_vector/(M_width + partial_width_vector)
         else:
             raise ValueError('Wrong meson name.')
@@ -212,16 +212,15 @@ def BrMeson(mchi,meson,msferm,lepton,lam_P):
 
 # Neutralino partial decay width to a meson and a lepton. This function receives a lambda primer trilinear RpV parameter 'trili', the neutralino mass, the meson, the lepton, and the sfermion mass scale.
 
-def Gamma_Chi(mchi,meson,msferm,lepton,trili):
+def Gamma_Chi(mchi,meson,lepton,trili): # trili/msferm2 free parameter >> trili == trili/m2
     M_mass = mesons[meson]['m']
     decay_const = mesons[meson]['F']
     ml = lepton_mass[lepton]
-    param = trili/(msferm**2)
     if mchi > (ml + M_mass):
         if meson in pseudoscalar_meson_list:
-            return LambdaSQ(mchi**2,M_mass**2,ml**2) * G(lepton,meson,trili/msferm**2)**2 * decay_const**2 * (mchi**2 + ml**2 - M_mass**2)/(128*PI*mchi**3)
+            return LambdaSQ(mchi**2,M_mass**2,ml**2) * G(lepton,meson,trili)**2 * decay_const**2 * (mchi**2 + ml**2 - M_mass**2)/(128*PI*mchi**3)
         elif meson in vector_meson_list:
-            return LambdaSQ(mchi**2,M_mass**2,ml**2) * G(lepton,meson,trili/msferm**2)**2 * decay_const**2 * (2*(mchi**2 - ml**2)**2 - M_mass**2*(M_mass**2 + mchi**2 + ml**2))/(2*PI*mchi**3)
+            return LambdaSQ(mchi**2,M_mass**2,ml**2) * G(lepton,meson,trili)**2 * decay_const**2 * (2*(mchi**2 - ml**2)**2 - M_mass**2*(M_mass**2 + mchi**2 + ml**2))/(2*PI*mchi**3)
         else:
             raise ValueError('Wrong meson name.')
     else:
@@ -229,75 +228,75 @@ def Gamma_Chi(mchi,meson,msferm,lepton,trili):
 
 # Neutralino total width. This function receives the neutralino mass, the sfermion mass scale, and the values of the production and decay RpV parameters. It also receives strings lam_P, lam_D that specify what production and decay parameters are activated. This choice also determines what decay channels are available and contribute to the neutralino decay width, as specified in lambda_dict. If one lambda is used for production and decay of the neutralino, then the argument lam_P has to coincide with lam_D.
 
-def width_chi(mchi, msferm, prod, dec, lam_P, lam_D):
+def width_chi(mchi, prod, dec, lam_P, lam_D):
     Gamma_neut = 0
     for lam in lambda_dict:
         if prod == lam:
             for mes in lambda_dict[lam]['neutral']:
-                Gamma_neut += 2*Gamma_Chi(mchi,mes,msferm,'nu',lam_P)
+                Gamma_neut += 2*Gamma_Chi(mchi,mes,'nu',lam_P)
             for mes in lambda_dict[lam]['charged']:
-                Gamma_neut += 2*Gamma_Chi(mchi,mes,msferm,lambda_dict[lam]["lepton"],lam_P)
+                Gamma_neut += 2*Gamma_Chi(mchi,mes,lambda_dict[lam]["lepton"],lam_P)
         if prod != dec:
             if dec == lam:
                 for mes in lambda_dict[lam]['neutral']:
-                    Gamma_neut += 2*Gamma_Chi(mchi,mes,msferm,'nu',lam_D)
+                    Gamma_neut += 2*Gamma_Chi(mchi,mes,'nu',lam_D)
                 for mes in lambda_dict[lam]['charged']:
-                    Gamma_neut += 2*Gamma_Chi(mchi,mes,msferm,lambda_dict[lam]["lepton"],lam_D)
+                    Gamma_neut += 2*Gamma_Chi(mchi,mes,lambda_dict[lam]["lepton"],lam_D)
     return Gamma_neut
 
 # Branching ratios of neutralino decays. This function takes a lepton and a meson and verifies whether these final states are allowed given a choice of the production and decay parameters. If they are, it returns a (generally) non-zero branching ratio.
 
-def Br_chi(mchi, mes, msferm, lepton, prod, dec, lam_P, lam_D):
+def Br_chi(mchi, mes, lepton, prod, dec, lam_P, lam_D):
     Br = 0
-    total_width = width_chi(mchi, msferm, prod, dec, lam_P, lam_D)
+    total_width = width_chi(mchi, prod, dec, lam_P, lam_D)
     if mes in lambda_dict[prod]['charged'] and lepton == lambda_dict[prod]['lepton']:
-        Br += Gamma_Chi(mchi,mes,msferm,lepton,lam_P)/total_width
+        Br += Gamma_Chi(mchi,mes,lepton,lam_P)/total_width
     if mes in lambda_dict[prod]['neutral'] and lepton == 'nu':
-        Br += Gamma_Chi(mchi,mes,msferm,lepton,lam_P)/total_width
+        Br += Gamma_Chi(mchi,mes,lepton,lam_P)/total_width
     if dec != prod:
         if mes in lambda_dict[dec]['charged'] and lepton == lambda_dict[dec]['lepton']:
-            Br += Gamma_Chi(mchi,mes,msferm,lepton,lam_D)/total_width
+            Br += Gamma_Chi(mchi,mes,lepton,lam_D)/total_width
         if mes in lambda_dict[dec]['neutral'] and lepton == 'nu':
-            Br += Gamma_Chi(mchi,mes,msferm,lepton,lam_D)/total_width
+            Br += Gamma_Chi(mchi,mes,lepton,lam_D)/total_width
     return Br
  
 # Electron-like branching ratios of neutralino decays (Eq. (4.8) in 1910.12839)
 
-def Br_elike(mchi, msferm, prod, dec, lam_P, lam_D):
+def Br_elike(mchi, prod, dec, lam_P, lam_D):
     Br = 0    
-    total_width = width_chi(mchi, msferm, prod, dec, lam_P, lam_D)
+    total_width = width_chi(mchi, prod, dec, lam_P, lam_D)
     for lam in ['lam111','lam112','lam121','lam122']:
         if prod == lam:
             for mes in lambda_dict[lam]['neutral']:
-                Br += 2*Gamma_Chi(mchi,mes,msferm,'nu',lam_P)/total_width
+                Br += 2*Gamma_Chi(mchi,mes,'nu',lam_P)/total_width
             for mes in lambda_dict[lam]['charged']:
-                Br += 2*Gamma_Chi(mchi,mes,msferm,lambda_dict[lam]["lepton"],lam_P)/total_width
+                Br += 2*Gamma_Chi(mchi,mes,lambda_dict[lam]["lepton"],lam_P)/total_width
         if prod != dec:
             if dec == lam:
                 for mes in lambda_dict[lam]['neutral']:
-                    Br += 2*Gamma_Chi(mchi,mes,msferm,'nu',lam_D)/total_width
+                    Br += 2*Gamma_Chi(mchi,mes,'nu',lam_D)/total_width
                 for mes in lambda_dict[lam]['charged']:
-                    Br += 2*Gamma_Chi(mchi,mes,msferm,lambda_dict[lam]["lepton"],lam_D)/total_width
+                    Br += 2*Gamma_Chi(mchi,mes,lambda_dict[lam]["lepton"],lam_D)/total_width
     for lam in ['lam211','lam212','lam221','lam222']:
         if prod == lam:
             for mes in lambda_dict[lam]['neutral']:
-                Br += 2*Gamma_Chi(mchi,mes,msferm,'nu',lam_P)/total_width
+                Br += 2*Gamma_Chi(mchi,mes,'nu',lam_P)/total_width
         if prod != dec:
             if dec == lam:
                 for mes in lambda_dict[lam]['neutral']:
-                    Br += 2*Gamma_Chi(mchi,mes,msferm,'nu',lam_D)/total_width
+                    Br += 2*Gamma_Chi(mchi,mes,'nu',lam_D)/total_width
     return Br
 
 # Lifetime in m
 
-def ctau_chi(mchi, msferm, prod, dec, lam_P, lam_D):
-    return Inv_GeV_to_m / width_chi(mchi, msferm, prod, dec, lam_P, lam_D)
+def ctau_chi(mchi, prod, dec, lam_P, lam_D):
+    return Inv_GeV_to_m / width_chi(mchi, prod, dec, lam_P, lam_D)
 
 # Methods to generate list with masses, decay lengths and branching ratios.
 
 # This method generates a list where the production and decay parameters are set to the same value. It generates a list where the mass and the value of the trilinear parameter change. It also works when the production and decay parameters coincide.
 
-def GetPheno(mchi_vec, prod_meson, prod_lepton, lamP_vec, lamD_vec, msferm_t, prod, dec,equal_coupling):
+def GetPheno(mchi_vec, prod_meson, prod_lepton, lamP_vec, lamD_vec, prod, dec,equal_coupling):
     mt_to_km = 1e-3
     ct_list, BrP_list, BrD_list, Br_list, Br_charged_list, lamP_list, lamD_list, m_list = ([] for i in range(8))
     for mchi in mchi_vec:
@@ -309,14 +308,14 @@ def GetPheno(mchi_vec, prod_meson, prod_lepton, lamP_vec, lamD_vec, msferm_t, pr
                 m_list.append(mchi)
                 lamP_list.append(lamP)
                 lamD_list.append(lamD)
-                ct_list.append(mt_to_km*ctau_chi(mchi, msferm_t, prod, dec, lamP, lamD))
-                BrD_list.append(Br_elike(mchi, msferm_t, prod, dec, lamP, lamD))
-                BrP_list.append(BrMeson(mchi, prod_meson, msferm_t, prod_lepton, lamP))
-                Br_list.append(BrMeson(mchi, prod_meson, msferm_t, prod_lepton, lamP)*Br_elike(mchi, msferm_t, prod, dec, lamP, lamD))
+                ct_list.append(mt_to_km*ctau_chi(mchi, prod, dec, lamP, lamD))
+                BrD_list.append(Br_elike(mchi, prod, dec, lamP, lamD))
+                BrP_list.append(BrMeson(mchi, prod_meson, prod_lepton, lamP))
+                Br_list.append(BrMeson(mchi, prod_meson, prod_lepton, lamP)*Br_elike(mchi, prod, dec, lamP, lamD))
                 for mes in lambda_dict[dec]['charged']:
-                    Br_charged += 2*Br_chi(mchi, mes, msferm_t, lambda_dict[dec]['lepton'], prod, dec, lamP, lamD)
+                    Br_charged += 2*Br_chi(mchi, mes, lambda_dict[dec]['lepton'], prod, dec, lamP, lamD)
                 for mes in lambda_dict[prod]['charged']:
-                    Br_charged += 2*Br_chi(mchi, mes, msferm_t, lambda_dict[prod]['lepton'], prod, dec, lamP, lamD)
+                    Br_charged += 2*Br_chi(mchi, mes, lambda_dict[prod]['lepton'], prod, dec, lamP, lamD)
                 Br_charged_list.append(Br_charged)
     return pd.DataFrame.from_dict({'ctau': ct_list, 'm': m_list, prod: lamP_list, dec: lamD_list, 'BrP': BrP_list, 'BrD': BrD_list, 'Br': Br_list, 'Br_charged': Br_charged_list})
 
@@ -337,13 +336,12 @@ if __name__ == '__main__':
     lam_prod_vec = BM[BENCHMARK]['LAM_PROD_RANGE']
     lam_dec = BM[BENCHMARK]['LAM_DEC']
     lam_dec_vec = BM[BENCHMARK]['LAM_DEC_RANGE']
-    msferm_t =  BM[BENCHMARK]['MSFERM']
     lepton = BM[BENCHMARK]['LEPTON']
     equal_coupling = BM[BENCHMARK]['EQUAL_COUPLING']
 
-    df_ct_eq_lam = GetPheno(ma_vec, meson, lepton, lam_prod_vec, lam_dec_vec, msferm_t, lam_prod, lam_dec, equal_coupling)
-    df_ct_eq_lam.to_csv(f'./datafiles/NeutralinoPheno/NeutralinoPheno_{BENCHMARK}.csv', index=None, header=True)
-    print(f'./datafiles/NeutralinoPheno/NeutralinoPheno_{BENCHMARK}.csv \t SAVED')
+    df_ct_eq_lam = GetPheno(ma_vec, meson, lepton, lam_prod_vec, lam_dec_vec, lam_prod, lam_dec, equal_coupling)
+    df_ct_eq_lam.to_csv(cwd+ f'/datafiles/NeutralinoPheno/NeutralinoPheno_{BENCHMARK}.csv', index=None, header=True)
+    print(cwd + f'/datafiles/NeutralinoPheno/NeutralinoPheno_{BENCHMARK}.csv \t SAVED')
 
     #----------------------------------------------#
     end = time.time()

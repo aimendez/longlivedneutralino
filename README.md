@@ -68,7 +68,6 @@ $ pip install -r requirements.txt
 ## Usage
 
 It is possible to run and get all the necessary files for an specific benchmark by running a single batch file ```run.bat```.
-
 Benchmarks are defined in ```config.py```, and they have to be specified as a dictionary (see below).
 
 
@@ -157,7 +156,7 @@ $ jupyter notebook
 ```
 ## Workflow 
 
-The way in which the individual scripts in  ```run.bat``` compute the final number of event, follows the workflow displayed below.
+Scripts in  ```run.bat``` compute the final number of event following the workflow displayed below.
 <div align="center">
 <img src="workflow.png" />
 </div>
@@ -171,9 +170,12 @@ The way in which the individual scripts in  ```run.bat``` compute the final numb
 - Add multiprocessing option for EventDistribution.py
 - <s> Create bash script to run a single BM at once </s>
 - Add default BM and exceptions
+- Bash file support for Linux
+- <s> Change to a free parameter lam_ijk/m^2 in Pheno.py </s>
+
 ## Authors
 
-- Pablo Candia [@????]() - [pablo.candiadasilva@manchester.ac.uk]()
+- Pablo Candia [@pcandias]() - [pablo.candiadasilva@manchester.ac.uk]()
 - Giovanna Cottin [@????]() - [giovanna.cottin@uai.cl]()
 - Andres Mendez [@aimendez](https://www.github.com/aimendez) - [aimendez@uc.cl]()
 - Victor Munos [@vmmunoza](https://github.com/vmmunoza/) - [victor.manuel.munoz@ific.uv.es]()
@@ -181,5 +183,10 @@ The way in which the individual scripts in  ```run.bat``` compute the final numb
 ## Support - Feedback 
 
 For support or feedback, email aimendez@uc.cl or any other member of the author list.
+
+
+
+
+
 
   
