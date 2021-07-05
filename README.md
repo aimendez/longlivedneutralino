@@ -102,9 +102,9 @@ BM  = {
 
   Range for the value of the neutralino mass.
 
-* **LAM_PROD** : String {"lamijk"}
+* **LAM_PROD** : String {"lamijk"}.
 
-  String to specify the RpV lambda coupling associated with the production of neutralinos. It has to follow the format "lamijk" where i,j,k = {1,2,3}.
+  String to specify the free parameter of the theory lam_ijk/m^2 associated with the production of neutralinos, where lam_ijk is the RpV lambda coupling and m is the sfermion mass. It has to follow the format "lamijk" where i,j,k = {1,2,3}.
 
 * **LAM_PROD_RANGE**:  list or array-like
 
@@ -112,15 +112,11 @@ BM  = {
 
 * **LAM_DEC**:  string  {"lamijk"}
 
-  String to specify the RpV lambda coupling associated with the decay of the neutralinos. It has to follow the format "lamijk" where i,j,k = {1,2,3}.
+  String to specify the free parameter of the theory lam_ijk/m^2 associated with the decay of neutralinos, where lam_ijk is the RpV lambda coupling and m is the sfermion mass. It has to follow the format "lamijk" where i,j,k = {1,2,3}.
 
 * **LAM_DEC_RANGE**:  list or array-like
 
   Range for LAM_DEC.
-
-* **MSFERM**: float 
-
-  Mass of the sfermion that mediates the decay.
 
 * **LEPTON**: string {"e", "mu", "tau"}
 

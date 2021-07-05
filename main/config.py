@@ -13,7 +13,6 @@ BM  = {
 					"LAM_PROD_RANGE": np.logspace(-7.0, -5.0, 40),
 					"LAM_DEC": 'lam112',
 					"LAM_DEC_RANGE": np.logspace(-7.0, -5.0, 40),
-					#"MSFERM": 1000,
 					"LEPTON": 'e',
 					"EQUAL_COUPLING":True,
 					"MODEL": "SYBILL",
@@ -26,7 +25,6 @@ BM  = {
 					"LAM_PROD_RANGE": np.logspace(-9.0, -5.0, 20),
 					"LAM_DEC": 'lam112',
 					"LAM_DEC_RANGE": np.logspace(-9.0, -5.0, 20),
-					#"MSFERM": 1000,
 					"LEPTON": 'e',
 					"EQUAL_COUPLING":True,
 					"MODEL": "SYBILL",
@@ -39,7 +37,6 @@ BM  = {
 					"LAM_PROD_RANGE": np.logspace(-7.0, -5.0, 40), #np.logspace(-3,1,40),
 					"LAM_DEC": 'lam121',
 					"LAM_DEC_RANGE": np.logspace(-7.0, -5.0, 40), # np.logspace(-3,1,40),
-					#"MSFERM": 1000,
 					"LEPTON": 'e',
 					"EQUAL_COUPLING":True,
 					"MODEL":"SYBILL",
@@ -54,20 +51,18 @@ BM  = {
 					"LAM_PROD_RANGE": np.logspace(-10.0, -5.0, 20),
 					"LAM_DEC": 'lam111',
 					"LAM_DEC_RANGE": np.logspace(-10.0, -5.0, 20),
-					#"MSFERM": 1000,
 					"LEPTON": 'e',
 					"EQUAL_COUPLING":True,
 					"MODEL":"SYBILL",
 			},
 
-		"BM4" : {	#BM1 D-MESONS lam121 = lam112 (fig 5a) #CHECKED
+		"BM4" : {	#BM1 TEST FOR PHENO.PY NEW VERSION
 					"MESON": 'D+',
 					"MA": np.linspace(0.5, 1.0, 20),
 					"LAM_PROD": 'lam121', #this are now couplings lam/m_sf^2
 					"LAM_PROD_RANGE": np.logspace(-7.0, -5.0, 20),
 					"LAM_DEC": 'lam112', #this are now couplings lam/m_sf^2
 					"LAM_DEC_RANGE": np.logspace(-7.0, -5.0, 20),
-					#"MSFERM": 1000, #no longer necessary
 					"LEPTON": 'e',
 					"EQUAL_COUPLING":True,
 					"MODEL": "SYBILL",
