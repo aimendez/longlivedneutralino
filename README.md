@@ -1,8 +1,8 @@
-[![arXiv](https://img.shields.io/badge/arXiv-1234.56789-b31b1b.svg?style=plastic)](https://arxiv.org/abs/1234.56789)
+[![arXiv](https://img.shields.io/badge/arXiv-1234.56789-b31b1b.svg?style=plastic)](https://arxiv.org/abs/2107.02804)
 
 # Searching for light long-lived neutralinos at Super-Kamiokande
 
-This repository contains the scripts and notebooks to reproduce the results in [arXiv:123]()
+This repository contains the scripts and notebooks to reproduce the results in [arXiv:2107.02804](https://arxiv.org/abs/2107.02804)
 
 ## Abstract 
 
